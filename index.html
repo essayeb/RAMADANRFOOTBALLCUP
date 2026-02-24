@@ -463,6 +463,9 @@
         </button>
         <button class="nav-btn" onclick="switchTab('groups')">Groups</button>
         <button class="nav-btn" onclick="switchTab('table')">Table</button>
+        <button class="nav-btn" onclick="switchTab('settings')">
+          Settings
+        </button>
       </nav>
     </header>
 
@@ -931,177 +934,360 @@
       <!-- TABLE TAB -->
       <!-- TABLE TAB -->
       <!-- TABLE TAB -->
-<div id="table" class="tab-content">
-  <div class="tables-container">
+      <div id="table" class="tab-content">
+        <div class="tables-container">
+          <!-- GROUP A TABLE -->
+          <div class="table-card">
+            <div class="table-header">
+              <div class="group-letter">A</div>
+              <div class="table-title">Group A</div>
+            </div>
+            <table class="standings-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Team</th>
+                  <th>PL</th>
+                  <th>W</th>
+                  <th>D</th>
+                  <th>L</th>
+                  <th>GD</th>
+                  <th>Pts</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="pos-cell">1</td>
+                  <td class="team-cell">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Logo_of_AC_Milan.svg"
+                      alt="AC Milan"
+                    />AC Milan
+                  </td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td class="pts-cell">0</td>
+                </tr>
+                <tr>
+                  <td class="pos-cell">2</td>
+                  <td class="team-cell">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/b/bf/Logo_Italy_National_Football_Team_-_2023.svg"
+                      alt="Italy"
+                    />Italy
+                  </td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td class="pts-cell">0</td>
+                </tr>
+                <tr>
+                  <td class="pos-cell">3</td>
+                  <td class="team-cell">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Clube_de_Regatas_do_Flamengo_logo.svg/500px-Clube_de_Regatas_do_Flamengo_logo.svg.png"
+                      alt="Flamengo"
+                    />Flamengo
+                  </td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td class="pts-cell">0</td>
+                </tr>
+                <tr>
+                  <td class="pos-cell">4</td>
+                  <td class="team-cell">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/fr/thumb/9/92/Hellas_Verona_FC_logo_%282020%29.svg/langfr-960px-Hellas_Verona_FC_logo_%282020%29.svg.png"
+                      alt="Hellas Verona"
+                    />Hellas Verona
+                  </td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td class="pts-cell">0</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-    <!-- GROUP A TABLE -->
-    <div class="table-card">
-      <div class="table-header">
-        <div class="group-letter">A</div>
-        <div class="table-title">Group A</div>
+          <!-- GROUP B TABLE -->
+          <div class="table-card">
+            <div class="table-header">
+              <div class="group-letter">B</div>
+              <div class="table-title">Group B</div>
+            </div>
+            <table class="standings-table">
+              <tbody>
+                <tr>
+                  <td class="pos-cell">1</td>
+                  <td class="team-cell">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg"
+                    />Real Madrid
+                  </td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td class="pts-cell">0</td>
+                </tr>
+                <tr>
+                  <td class="pos-cell">2</td>
+                  <td class="team-cell">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/d/d8/Olympique_Marseille_logo.svg"
+                    />Olympique Marseille
+                  </td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td class="pts-cell">0</td>
+                </tr>
+                <tr>
+                  <td class="pos-cell">3</td>
+                  <td class="team-cell">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Santos_logo.svg/960px-Santos_logo.svg.png"
+                    />Santos FC
+                  </td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td class="pts-cell">0</td>
+                </tr>
+                <tr>
+                  <td class="pos-cell">4</td>
+                  <td class="team-cell">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/fr/thumb/c/c5/Logo_Juventus_FC_2020.svg/960px-Logo_Juventus_FC_2020.svg.png"
+                    />Juventus
+                  </td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td class="pts-cell">0</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- GROUP C TABLE -->
+          <div class="table-card">
+            <div class="table-header">
+              <div class="group-letter">C</div>
+              <div class="table-title">Group C</div>
+            </div>
+            <table class="standings-table">
+              <tbody>
+                <tr>
+                  <td class="pos-cell">1</td>
+                  <td class="team-cell">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg"
+                    />FC Barcelona
+                  </td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td class="pts-cell">0</td>
+                </tr>
+                <tr>
+                  <td class="pos-cell">2</td>
+                  <td class="team-cell">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Boca_Juniors_logo18.svg"
+                    />Boca Juniors
+                  </td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td class="pts-cell">0</td>
+                </tr>
+                <tr>
+                  <td class="pos-cell">3</td>
+                  <td class="team-cell">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/en/a/a7/Paris_Saint-Germain_F.C..svg"
+                    />PSG
+                  </td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td class="pts-cell">0</td>
+                </tr>
+                <tr>
+                  <td class="pos-cell">4</td>
+                  <td class="team-cell">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/en/7/7a/Manchester_United_FC_crest.svg"
+                    />Manchester United
+                  </td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td class="pts-cell">0</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- GROUP D TABLE -->
+          <div class="table-card">
+            <div class="table-header">
+              <div class="group-letter">D</div>
+              <div class="table-title">Group D</div>
+            </div>
+            <table class="standings-table">
+              <tbody>
+                <tr>
+                  <td class="pos-cell">1</td>
+                  <td class="team-cell">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/6/67/Borussia_Dortmund_logo.svg"
+                    />Borussia Dortmund
+                  </td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td class="pts-cell">0</td>
+                </tr>
+                <tr>
+                  <td class="pos-cell">2</td>
+                  <td class="team-cell">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/0/05/FC_Internazionale_Milano_2021.svg"
+                    />Inter Milan
+                  </td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td class="pts-cell">0</td>
+                </tr>
+                <tr>
+                  <td class="pos-cell">3</td>
+                  <td class="team-cell">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/fr/c/c6/Al-Sadd_Sports_Club_logo.png"
+                    />Al Sadd
+                  </td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td class="pts-cell">0</td>
+                </tr>
+                <tr>
+                  <td class="pos-cell">4</td>
+                  <td class="team-cell">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/fr/thumb/9/9f/Logo_America_2023.svg/langfr-960px-Logo_America_2023.svg.png"
+                    />Club America
+                  </td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td class="pts-cell">0</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-      <table class="standings-table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Team</th>
-            <th>PL</th>
-            <th>W</th>
-            <th>D</th>
-            <th>L</th>
-            <th>GD</th>
-            <th>Pts</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="pos-cell">1</td>
-            <td class="team-cell">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Logo_of_AC_Milan.svg" alt="AC Milan">AC Milan
-            </td>
-            <td>0</td><td>0</td><td>0</td><td>0</td>
-            <td>0</td><td class="pts-cell">0</td>
-          </tr>
-          <tr>
-            <td class="pos-cell">2</td>
-            <td class="team-cell">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/b/bf/Logo_Italy_National_Football_Team_-_2023.svg" alt="Italy">Italy
-            </td>
-            <td>0</td><td>0</td><td>0</td><td>0</td>
-            <td>0</td><td class="pts-cell">0</td>
-          </tr>
-          <tr>
-            <td class="pos-cell">3</td>
-            <td class="team-cell">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Clube_de_Regatas_do_Flamengo_logo.svg/500px-Clube_de_Regatas_do_Flamengo_logo.svg.png" alt="Flamengo">Flamengo
-            </td>
-            <td>0</td><td>0</td><td>0</td><td>0</td>
-            <td>0</td><td class="pts-cell">0</td>
-          </tr>
-          <tr>
-            <td class="pos-cell">4</td>
-            <td class="team-cell">
-              <img src="https://upload.wikimedia.org/wikipedia/fr/thumb/9/92/Hellas_Verona_FC_logo_%282020%29.svg/langfr-960px-Hellas_Verona_FC_logo_%282020%29.svg.png" alt="Hellas Verona">Hellas Verona
-            </td>
-            <td>0</td><td>0</td><td>0</td><td>0</td>
-            <td>0</td><td class="pts-cell">0</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- GROUP B TABLE -->
-    <div class="table-card">
-      <div class="table-header">
-        <div class="group-letter">B</div>
-        <div class="table-title">Group B</div>
+      <!-- SETTINGS TAB -->
+      <div id="settings" class="tab-content">
+        <div class="groups-container">
+          <!-- MATCH SETTINGS SECTION -->
+          <div class="group-card">
+            <div class="group-header">
+              <div class="group-letter">⚙️</div>
+              <div class="group-title">Match Settings</div>
+            </div>
+            <div class="group-teams" style="justify-content: center; gap: 20px">
+              <img
+                src="https://github.com/essayeb/RAMADANRFOOTBALLCUP/blob/main/cap1.jpg?raw=true"
+                alt="Image 1"
+                style="
+                  width: 350px;
+                  height: 180px;
+                  background: #333;
+                  border-radius: 8px;
+                "
+              />
+              <img
+                src="https://github.com/essayeb/RAMADANRFOOTBALLCUP/blob/main/cap2.jpg?raw=true"
+                alt="Image 2"
+                style="
+                  width: 350px;
+                  height: 180px;
+                  background: #333;
+                  border-radius: 8px;
+                "
+              />
+            </div>
+          </div>
+          <!-- RULES SECTION -->
+          <div class="group-card">
+            <div class="group-header">
+              <div class="group-letter">📜</div>
+              <div class="group-title">Rules</div>
+            </div>
+            <div
+              class="group-teams"
+              style="flex-direction: column; gap: 10px; color: white"
+            >
+              <p>
+                1. If a player logs out after the 30th minute, their teammate
+                must complete the match alone.
+              </p>
+              <p>
+                2. If both players leave the match, it will be considered a
+                forfeit.
+              </p>
+              <p>
+                3. If a player from one team leaves in the first half while a
+                player from the other team also leaves, the match will be
+                restarted.
+              </p>
+              <p>
+                4. Every match’s final score must be documented with a
+                screenshot.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-      <table class="standings-table">
-        <tbody>
-          <tr>
-            <td class="pos-cell">1</td>
-            <td class="team-cell"><img src="https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg">Real Madrid</td>
-            <td>0</td><td>0</td><td>0</td><td>0</td>
-            <td>0</td><td class="pts-cell">0</td>
-          </tr>
-          <tr>
-            <td class="pos-cell">2</td>
-            <td class="team-cell"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d8/Olympique_Marseille_logo.svg">Olympique Marseille</td>
-            <td>0</td><td>0</td><td>0</td><td>0</td>
-            <td>0</td><td class="pts-cell">0</td>
-          </tr>
-          <tr>
-            <td class="pos-cell">3</td>
-            <td class="team-cell"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Santos_logo.svg/960px-Santos_logo.svg.png">Santos FC</td>
-            <td>0</td><td>0</td><td>0</td><td>0</td>
-            <td>0</td><td class="pts-cell">0</td>
-          </tr>
-          <tr>
-            <td class="pos-cell">4</td>
-            <td class="team-cell"><img src="https://upload.wikimedia.org/wikipedia/fr/thumb/c/c5/Logo_Juventus_FC_2020.svg/960px-Logo_Juventus_FC_2020.svg.png">Juventus</td>
-            <td>0</td><td>0</td><td>0</td><td>0</td>
-            <td>0</td><td class="pts-cell">0</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- GROUP C TABLE -->
-    <div class="table-card">
-      <div class="table-header">
-        <div class="group-letter">C</div>
-        <div class="table-title">Group C</div>
-      </div>
-      <table class="standings-table">
-        <tbody>
-          <tr>
-            <td class="pos-cell">1</td>
-            <td class="team-cell"><img src="https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg">FC Barcelona</td>
-            <td>0</td><td>0</td><td>0</td><td>0</td>
-            <td>0</td><td class="pts-cell">0</td>
-          </tr>
-          <tr>
-            <td class="pos-cell">2</td>
-            <td class="team-cell"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Boca_Juniors_logo18.svg">Boca Juniors</td>
-            <td>0</td><td>0</td><td>0</td><td>0</td>
-            <td>0</td><td class="pts-cell">0</td>
-          </tr>
-          <tr>
-            <td class="pos-cell">3</td>
-            <td class="team-cell"><img src="https://upload.wikimedia.org/wikipedia/en/a/a7/Paris_Saint-Germain_F.C..svg">PSG</td>
-            <td>0</td><td>0</td><td>0</td><td>0</td>
-            <td>0</td><td class="pts-cell">0</td>
-          </tr>
-          <tr>
-            <td class="pos-cell">4</td>
-            <td class="team-cell"><img src="https://upload.wikimedia.org/wikipedia/en/7/7a/Manchester_United_FC_crest.svg">Manchester United</td>
-            <td>0</td><td>0</td><td>0</td><td>0</td>
-            <td>0</td><td class="pts-cell">0</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- GROUP D TABLE -->
-    <div class="table-card">
-      <div class="table-header">
-        <div class="group-letter">D</div>
-        <div class="table-title">Group D</div>
-      </div>
-      <table class="standings-table">
-        <tbody>
-          <tr>
-            <td class="pos-cell">1</td>
-            <td class="team-cell"><img src="https://upload.wikimedia.org/wikipedia/commons/6/67/Borussia_Dortmund_logo.svg">Borussia Dortmund</td>
-            <td>0</td><td>0</td><td>0</td><td>0</td>
-            <td>0</td><td class="pts-cell">0</td>
-          </tr>
-          <tr>
-            <td class="pos-cell">2</td>
-            <td class="team-cell"><img src="https://upload.wikimedia.org/wikipedia/commons/0/05/FC_Internazionale_Milano_2021.svg">Inter Milan</td>
-            <td>0</td><td>0</td><td>0</td><td>0</td>
-            <td>0</td><td class="pts-cell">0</td>
-          </tr>
-          <tr>
-            <td class="pos-cell">3</td>
-            <td class="team-cell"><img src="https://upload.wikimedia.org/wikipedia/fr/c/c6/Al-Sadd_Sports_Club_logo.png">Al Sadd</td>
-            <td>0</td><td>0</td><td>0</td><td>0</td>
-            <td>0</td><td class="pts-cell">0</td>
-          </tr>
-          <tr>
-            <td class="pos-cell">4</td>
-            <td class="team-cell"><img src="https://upload.wikimedia.org/wikipedia/fr/thumb/9/9f/Logo_America_2023.svg/langfr-960px-Logo_America_2023.svg.png">Club America</td>
-            <td>0</td><td>0</td><td>0</td><td>0</td>
-            <td>0</td><td class="pts-cell">0</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-  </div>
-</div>
-      </div>
-
       <br />
       <div class="zb">
         <p>
