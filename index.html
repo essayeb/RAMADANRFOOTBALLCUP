@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>eFootball Tournament</title>
+    <style>
+      /* RESET & BASE STYLES */
+      :root {
+        --bg: #0a0a0a;
+        --card-bg: rgba(20, 20, 20, 0.7);
+        --text-main: #ffffff;
+        --text-muted: #aaaaaa;
+        --accent: #bb86fc;
+        --accent-glow: rgba(187, 134, 252, 0.2);
+        --border: #333333;
+        --font-stack: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Helvetica, Arial, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: var(--font-stack);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #1a1a2e);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+        z-index: -1;
+      }
+
+      @keyframes gradientBG {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      header {
+        margin-top: 40px;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      h1 {
+        font-size: 2.2rem;
+        font-weight: 800;
+        letter-spacing: -1px;
+        margin-bottom: 20px;
+        background: linear-gradient(45deg, #fff, #aaa);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      }
+
+      nav {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        padding: 5px;
+        background: rgba(20, 20, 20, 0.6);
+        backdrop-filter: blur(10px);
+        border-radius: 50px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        margin-bottom: 40px;
+      }
+
+      .nav-btn {
+        background: transparent;
+        border: none;
+        color: var(--text-muted);
+        padding: 10px 25px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        border-radius: 40px;
+        transition: all 0.3s ease;
+      }
+
+      .nav-btn:hover {
+        color: var(--text-main);
+        text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+      }
+
+      .nav-btn.active {
+        background: var(--text-main);
+        color: var(--bg);
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+      }
+
+      main {
+        width: 100%;
+        max-width: 1000px;
+        padding: 0 20px;
+        padding-bottom: 50px;
+      }
+
+      .tab-content {
+        display: none;
+        animation: fadeIn 0.5s ease;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .teams-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 20px;
+      }
+
+      .team-card {
+        background: var(--card-bg);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 25px;
+        position: relative;
+        transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+        cursor: help;
+      }
+
+      .team-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--accent);
+        box-shadow: 0 10px 30px var(--accent-glow);
+        z-index: 10;
+      }
+
+      .team-name {
+        font-size: 1.1rem;
+        color: white;
+        font-weight: 700;
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .team-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .team-header img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+      }
+
+      .team-card:hover::after {
+        content: attr(data-members);
+        position: absolute;
+        bottom: -70px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #111;
+        color: #fff;
+        padding: 12px 15px;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        width: 90%;
+        text-align: center;
+        border: 1px solid var(--accent);
+        z-index: 9999;
+        pointer-events: none;
+        white-space: pre-line;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      }
+
+      .team-card:hover::before {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 6px;
+        border-style: solid;
+        border-color: var(--accent) transparent transparent transparent;
+        z-index: 9999;
+      }
+
+      .zb {
+        color: gray;
+      }
+      .zbb {
+        color: gray;
+        text-align: center;
+      }
+
+      /* --- GROUPS STYLES --- */
+      .groups-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+      }
+
+      .group-card {
+        background: var(--card-bg);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 25px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .group-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(187, 134, 252, 0.15);
+        border-color: rgba(187, 134, 252, 0.3);
+      }
+
+      .group-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .group-letter {
+        width: 45px;
+        height: 45px;
+        background: linear-gradient(135deg, var(--accent), #9b59b6);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: white;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .group-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--text-main);
+      }
+
+      .group-teams {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .group-team {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 15px;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: all 0.2s ease;
+        cursor: help;
+        position: relative;
+      }
+
+      .group-team:hover {
+        background: rgba(187, 134, 252, 0.1);
+        border-color: rgba(187, 134, 252, 0.3);
+        transform: translateX(5px);
+      }
+
+      .group-team img {
+        width: 32px;
+        height: 32px;
+        object-fit: contain;
+      }
+
+      .group-team-name {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--text-main);
+      }
+
+      .group-team:hover::after {
+        content: attr(data-members);
+        position: absolute;
+        bottom: -60px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        background: #111;
+        color: #fff;
+        padding: 10px 12px;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        width: 95%;
+        text-align: center;
+        border: 1px solid var(--accent);
+        z-index: 9999;
+        pointer-events: none;
+        white-space: pre-line;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      }
+
+      .group-team:hover::before {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 5px;
+        border-style: solid;
+        border-color: var(--accent) transparent transparent transparent;
+        z-index: 9999;
+      }
+      /* --- TABLE STYLES --- */
+      .tables-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+        gap: 30px;
+      }
+
+      .table-card {
+        background: var(--card-bg);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 25px;
+        overflow: hidden;
+      }
+
+      .table-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .table-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--text-main);
+      }
+
+      .standings-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+      }
+
+      .standings-table th {
+        text-align: left;
+        padding: 12px 10px;
+        color: var(--text-muted);
+        font-weight: 600;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .standings-table th:not(:first-child) {
+        text-align: center;
+      }
+
+      .standings-table td {
+        padding: 14px 10px;
+        color: var(--text-main);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .standings-table td:not(:first-child) {
+        text-align: center;
+        font-weight: 600;
+      }
+
+      .standings-table tbody tr:hover {
+        background: rgba(187, 134, 252, 0.1);
+      }
+
+      .pos-cell {
+        width: 35px;
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      .team-cell {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .team-cell img {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+      }
+
+      .qualified {
+        background: rgba(46, 204, 113, 0.15);
+        border-radius: 8px;
+      }
+
+      .qualified::after {
+        content: "✔";
+        margin-left: 8px;
+        color: #2ecc71;
+        font-size: 0.8rem;
+      }
+
+      .pts-cell {
+        font-weight: 800;
+        color: var(--accent);
+      }
+
+      .gd-positive {
+        color: #2ecc71;
+      }
+      .gd-negative {
+        color: #e74c3c;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Ramadan LPM eFootball Tournament</h1>
+      <nav>
+        <button class="nav-btn active" onclick="switchTab('teams')">
+          Teams
+        </button>
+        <button class="nav-btn" onclick="switchTab('groups')">Groups</button>
+        <button class="nav-btn" onclick="switchTab('table')">Table</button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- TEAMS TAB -->
+      <div id="teams" class="tab-content active">
+        <div class="teams-grid">
+          <!-- AC Milan -->
+          <div
+            id="acmilan"
+            class="team-card"
+            data-members="Adem Fadhli&#10;Wael Ayeb"
+          >
+            <div class="team-header">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Logo_of_AC_Milan.svg"
+                alt="AC Milan"
+              />
+              <div class="team-name">
+                AC Milan <span style="font-size: 12px">ⓘ</span>
+              </div>
+            </div>
+          </div>
+          <!-- Santos -->
+          <div
+            id="santos"
+            class="team-card"
+            data-members="Med Chamekh&#10;Med Mahdhaoui"
+          >
+            <div class="team-header">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Santos_logo.svg/960px-Santos_logo.svg.png"
+                alt="Santos"
+              />
+              <div class="team-name">
+                Santos FC <span style="font-size: 12px">ⓘ</span>
+              </div>
+            </div>
+          </div>
+          <!-- Italy -->
+          <div
+            id="italy"
+            class="team-card"
+            data-members="Ilyes Sraieb&#10;Hamza Ben El Haj Yahya"
+          >
+            <div class="team-header">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/b/bf/Logo_Italy_National_Football_Team_-_2023.svg"
+                alt="Italy"
+              />
+              <div class="team-name">
+                Italy <span style="font-size: 12px">ⓘ</span>
+              </div>
+            </div>
+          </div>
+          <!-- Boca Juniors -->
+          <div
+            id="boca"
+            class="team-card"
+            data-members="Ammar Mtimet&#10;Rayen Omar"
+          >
+            <div class="team-header">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Boca_Juniors_logo18.svg"
+                alt="Boca"
+              />
+              <div class="team-name">
+                Boca Juniors <span style="font-size: 12px">ⓘ</span>
+              </div>
+            </div>
+          </div>
+          <!-- Marseille -->
+          <div
+            id="marseille"
+            class="team-card"
+            data-members="Younes Grira&#10;Bayrem Robei"
+          >
+            <div class="team-header">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/d/d8/Olympique_Marseille_logo.svg"
+                alt="Marseille"
+              />
+              <div class="team-name">
+                Olympique Marseille <span style="font-size: 12px">ⓘ</span>
+              </div>
+            </div>
+          </div>
+          <!-- Barcelona -->
+          <div
+            id="barca"
+            class="team-card"
+            data-members="Rayen Essayeb&#10;Ahmed Bayounes"
+          >
+            <div class="team-header">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg"
+                alt="Barcelona"
+              />
+              <div class="team-name">
+                FC Barcelona <span style="font-size: 12px">ⓘ</span>
+              </div>
+            </div>
+          </div>
+          <!-- Real Madrid -->
+          <div
+            id="real"
+            class="team-card"
+            data-members="Adem Abri&#10;Firas Trabelsi"
+          >
+            <div class="team-header">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg"
+                alt="Real Madrid"
+              />
+              <div class="team-name">
+                Real Madrid <span style="font-size: 12px">ⓘ</span>
+              </div>
+            </div>
+          </div>
+          <!-- Flamengo -->
+          <div
+            id="flamengo"
+            class="team-card"
+            data-members="Jihed Mehdaoui&#10;Iyed Ounalah"
+          >
+            <div class="team-header">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Clube_de_Regatas_do_Flamengo_logo.svg/500px-Clube_de_Regatas_do_Flamengo_logo.svg.png"
+                alt="Flamengo"
+              />
+              <div class="team-name">
+                Flamengo <span style="font-size: 12px">ⓘ</span>
+              </div>
+            </div>
+          </div>
+          <!-- Borussia Dortmund -->
+          <div
+            id="borussia"
+            class="team-card"
+            data-members="Ahmed Yassine Chammem&#10;Sajed Louleb"
+          >
+            <div class="team-header">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/6/67/Borussia_Dortmund_logo.svg"
+                alt="Dortmund"
+              />
+              <div class="team-name">
+                Borussia Dortmund <span style="font-size: 12px">ⓘ</span>
+              </div>
+            </div>
+          </div>
+          <!-- PSG -->
+          <div
+            id="psg"
+            class="team-card"
+            data-members="_mkh92&#10;Dali Lanouar"
+          >
+            <div class="team-header">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/en/a/a7/Paris_Saint-Germain_F.C..svg"
+                alt="PSG"
+              />
+              <div class="team-name">
+                PSG <span style="font-size: 12px">ⓘ</span>
+              </div>
+            </div>
+          </div>
+          <!-- Al Sadd -->
+          <div
+            id="sadd"
+            class="team-card"
+            data-members="Iyed Ounis&#10;Khalil Sebei"
+          >
+            <div class="team-header">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/fr/c/c6/Al-Sadd_Sports_Club_logo.png?20230603000101"
+                alt="Al Sadd"
+              />
+              <div class="team-name">
+                Al Sadd <span style="font-size: 12px">ⓘ</span>
+              </div>
+            </div>
+          </div>
+          <!-- Manchester United -->
+          <div
+            id="manutd"
+            class="team-card"
+            data-members="Mohamed Aziz Halmous&#10;Hazem"
+          >
+            <div class="team-header">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/en/7/7a/Manchester_United_FC_crest.svg"
+                alt="Man United"
+              />
+              <div class="team-name">
+                Manchester United <span style="font-size: 12px">ⓘ</span>
+              </div>
+            </div>
+          </div>
+          <!-- Inter -->
+          <div
+            id="inter"
+            class="team-card"
+            data-members="Jassem Rahmani&#10;Wissem Lamouri"
+          >
+            <div class="team-header">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/0/05/FC_Internazionale_Milano_2021.svg"
+                alt="Inter"
+              />
+              <div class="team-name">
+                Inter Milan <span style="font-size: 12px">ⓘ</span>
+              </div>
+            </div>
+          </div>
+          <!-- Juventus -->
+          <div
+            id="Juventus"
+            class="team-card"
+            data-members="Dhia Jery&#10;Mohamed Aziz Laamari"
+          >
+            <div class="team-header">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/fr/thumb/c/c5/Logo_Juventus_FC_2020.svg/960px-Logo_Juventus_FC_2020.svg.png?20241120104709"
+                alt="Juventus"
+              />
+              <div class="team-name">
+                Juventus <span style="font-size: 12px">ⓘ</span>
+              </div>
+            </div>
+          </div>
+          <!-- Club America -->
+          <div
+            id="Club America"
+            class="team-card"
+            data-members="Borhene Mars&#10;Mohamed Saad"
+          >
+            <div class="team-header">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/fr/thumb/9/9f/Logo_America_2023.svg/langfr-960px-Logo_America_2023.svg.png"
+                alt="Club America"
+              />
+              <div class="team-name">
+                Club America <span style="font-size: 12px">ⓘ</span>
+              </div>
+            </div>
+          </div>
+          <!-- Hellas Verona -->
+          <div
+            id="Hellas Verona"
+            class="team-card"
+            data-members="Fahd Naceur&#10;Membre Anonyme"
+          >
+            <div class="team-header">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/fr/thumb/9/92/Hellas_Verona_FC_logo_%282020%29.svg/langfr-960px-Hellas_Verona_FC_logo_%282020%29.svg.png"
+                alt="Hellas Verona"
+              />
+              <div class="team-name">
+                Hellas Verona <span style="font-size: 12px">ⓘ</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GROUPS TAB -->
+      <div id="groups" class="tab-content">
+        <div class="groups-container">
+          <!-- GROUP A -->
+          <div class="group-card">
+            <div class="group-header">
+              <div class="group-letter">A</div>
+              <div class="group-title">Group A</div>
+            </div>
+            <div class="group-teams">
+              <div class="group-team" data-members="Adem Fadhli&#10;Wael Ayeb">
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Logo_of_AC_Milan.svg"
+                  alt="AC Milan"
+                />
+                <div class="group-team-name">AC Milan</div>
+              </div>
+              <div
+                class="group-team"
+                data-members="Ilyes Sraieb&#10;Hamza Ben El Haj Yahya"
+              >
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/b/bf/Logo_Italy_National_Football_Team_-_2023.svg"
+                  alt="Italy"
+                />
+                <div class="group-team-name">Italy</div>
+              </div>
+              <div
+                class="group-team"
+                data-members="Jihed Mahdhaoui&#10;Iyed Ounalah"
+              >
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Clube_de_Regatas_do_Flamengo_logo.svg/500px-Clube_de_Regatas_do_Flamengo_logo.svg.png"
+                  alt="Flamengo"
+                />
+                <div class="group-team-name">Flamengo</div>
+              </div>
+              <div
+                class="group-team"
+                data-members="Fahd Naceur&#10;Membre Anonyme"
+              >
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/fr/thumb/9/92/Hellas_Verona_FC_logo_%282020%29.svg/langfr-960px-Hellas_Verona_FC_logo_%282020%29.svg.png"
+                  alt="Hellas Verona"
+                />
+                <div class="group-team-name">Hellas Verona</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- GROUP B -->
+          <div class="group-card">
+            <div class="group-header">
+              <div class="group-letter">B</div>
+              <div class="group-title">Group B</div>
+            </div>
+            <div class="group-teams">
+              <div
+                class="group-team"
+                data-members="Med Chamekh&#10;Med Mahdhaoui"
+              >
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Santos_logo.svg/960px-Santos_logo.svg.png"
+                  alt="Santos"
+                />
+                <div class="group-team-name">Santos FC</div>
+              </div>
+              <div
+                class="group-team"
+                data-members="Younes Grira&#10;Bayrem Robei"
+              >
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/d/d8/Olympique_Marseille_logo.svg"
+                  alt="Marseille"
+                />
+                <div class="group-team-name">Olympique Marseille</div>
+              </div>
+              <div
+                class="group-team"
+                data-members="Adem Abri&#10;Firas Trabelsi"
+              >
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg"
+                  alt="Real Madrid"
+                />
+                <div class="group-team-name">Real Madrid</div>
+              </div>
+              <div
+                class="group-team"
+                data-members="Dhia Jery&#10;Mohamed Aziz Laamari"
+              >
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/fr/thumb/c/c5/Logo_Juventus_FC_2020.svg/960px-Logo_Juventus_FC_2020.svg.png?20241120104709"
+                  alt="Juventus"
+                />
+                <div class="group-team-name">Juventus</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- GROUP C -->
+          <div class="group-card">
+            <div class="group-header">
+              <div class="group-letter">C</div>
+              <div class="group-title">Group C</div>
+            </div>
+            <div class="group-teams">
+              <div
+                class="group-team"
+                data-members="Ammar Mtimet&#10;Rayen Omar"
+              >
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Boca_Juniors_logo18.svg"
+                  alt="Boca"
+                />
+                <div class="group-team-name">Boca Juniors</div>
+              </div>
+              <div
+                class="group-team"
+                data-members="Rayen Essayeb&#10;Ahmed Bayounes"
+              >
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg"
+                  alt="Barcelona"
+                />
+                <div class="group-team-name">FC Barcelona</div>
+              </div>
+              <div class="group-team" data-members="_mkh92&#10;Dali Lanouar">
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/en/a/a7/Paris_Saint-Germain_F.C..svg"
+                  alt="PSG"
+                />
+                <div class="group-team-name">PSG</div>
+              </div>
+              <div
+                class="group-team"
+                data-members="Mohamed Aziz Halmous&#10;Hazem"
+              >
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/en/7/7a/Manchester_United_FC_crest.svg"
+                  alt="Man United"
+                />
+                <div class="group-team-name">Manchester United</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- GROUP D -->
+          <div class="group-card">
+            <div class="group-header">
+              <div class="group-letter">D</div>
+              <div class="group-title">Group D</div>
+            </div>
+            <div class="group-teams">
+              <div
+                class="group-team"
+                data-members="Ahmed Yassine Chammem&#10;Sajed Louleb"
+              >
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/6/67/Borussia_Dortmund_logo.svg"
+                  alt="Dortmund"
+                />
+                <div class="group-team-name">Borussia Dortmund</div>
+              </div>
+              <div
+                class="group-team"
+                data-members="Iyed Ounis&#10;Khalil Sebei"
+              >
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/fr/c/c6/Al-Sadd_Sports_Club_logo.png?20230603000101"
+                  alt="Al Sadd"
+                />
+                <div class="group-team-name">Al Sadd</div>
+              </div>
+              <div
+                class="group-team"
+                data-members="Jassem Rahmani&#10;Wissem Lamouri"
+              >
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/0/05/FC_Internazionale_Milano_2021.svg"
+                  alt="Inter"
+                />
+                <div class="group-team-name">Inter Milan</div>
+              </div>
+              <div
+                class="group-team"
+                data-members="Borhene Mars&#10;Mohamed Saad"
+              >
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/fr/thumb/9/9f/Logo_America_2023.svg/langfr-960px-Logo_America_2023.svg.png"
+                  alt="Club America"
+                />
+                <div class="group-team-name">Club America</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABLE TAB -->
+      <!-- TABLE TAB -->
+      <!-- TABLE TAB -->
+<div id="table" class="tab-content">
+  <div class="tables-container">
+
+    <!-- GROUP A TABLE -->
+    <div class="table-card">
+      <div class="table-header">
+        <div class="group-letter">A</div>
+        <div class="table-title">Group A</div>
+      </div>
+      <table class="standings-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Team</th>
+            <th>PL</th>
+            <th>W</th>
+            <th>D</th>
+            <th>L</th>
+            <th>GD</th>
+            <th>Pts</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="pos-cell">1</td>
+            <td class="team-cell">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Logo_of_AC_Milan.svg" alt="AC Milan">AC Milan
+            </td>
+            <td>0</td><td>0</td><td>0</td><td>0</td>
+            <td>0</td><td class="pts-cell">0</td>
+          </tr>
+          <tr>
+            <td class="pos-cell">2</td>
+            <td class="team-cell">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/b/bf/Logo_Italy_National_Football_Team_-_2023.svg" alt="Italy">Italy
+            </td>
+            <td>0</td><td>0</td><td>0</td><td>0</td>
+            <td>0</td><td class="pts-cell">0</td>
+          </tr>
+          <tr>
+            <td class="pos-cell">3</td>
+            <td class="team-cell">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Clube_de_Regatas_do_Flamengo_logo.svg/500px-Clube_de_Regatas_do_Flamengo_logo.svg.png" alt="Flamengo">Flamengo
+            </td>
+            <td>0</td><td>0</td><td>0</td><td>0</td>
+            <td>0</td><td class="pts-cell">0</td>
+          </tr>
+          <tr>
+            <td class="pos-cell">4</td>
+            <td class="team-cell">
+              <img src="https://upload.wikimedia.org/wikipedia/fr/thumb/9/92/Hellas_Verona_FC_logo_%282020%29.svg/langfr-960px-Hellas_Verona_FC_logo_%282020%29.svg.png" alt="Hellas Verona">Hellas Verona
+            </td>
+            <td>0</td><td>0</td><td>0</td><td>0</td>
+            <td>0</td><td class="pts-cell">0</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- GROUP B TABLE -->
+    <div class="table-card">
+      <div class="table-header">
+        <div class="group-letter">B</div>
+        <div class="table-title">Group B</div>
+      </div>
+      <table class="standings-table">
+        <tbody>
+          <tr>
+            <td class="pos-cell">1</td>
+            <td class="team-cell"><img src="https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg">Real Madrid</td>
+            <td>0</td><td>0</td><td>0</td><td>0</td>
+            <td>0</td><td class="pts-cell">0</td>
+          </tr>
+          <tr>
+            <td class="pos-cell">2</td>
+            <td class="team-cell"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d8/Olympique_Marseille_logo.svg">Olympique Marseille</td>
+            <td>0</td><td>0</td><td>0</td><td>0</td>
+            <td>0</td><td class="pts-cell">0</td>
+          </tr>
+          <tr>
+            <td class="pos-cell">3</td>
+            <td class="team-cell"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Santos_logo.svg/960px-Santos_logo.svg.png">Santos FC</td>
+            <td>0</td><td>0</td><td>0</td><td>0</td>
+            <td>0</td><td class="pts-cell">0</td>
+          </tr>
+          <tr>
+            <td class="pos-cell">4</td>
+            <td class="team-cell"><img src="https://upload.wikimedia.org/wikipedia/fr/thumb/c/c5/Logo_Juventus_FC_2020.svg/960px-Logo_Juventus_FC_2020.svg.png">Juventus</td>
+            <td>0</td><td>0</td><td>0</td><td>0</td>
+            <td>0</td><td class="pts-cell">0</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- GROUP C TABLE -->
+    <div class="table-card">
+      <div class="table-header">
+        <div class="group-letter">C</div>
+        <div class="table-title">Group C</div>
+      </div>
+      <table class="standings-table">
+        <tbody>
+          <tr>
+            <td class="pos-cell">1</td>
+            <td class="team-cell"><img src="https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg">FC Barcelona</td>
+            <td>0</td><td>0</td><td>0</td><td>0</td>
+            <td>0</td><td class="pts-cell">0</td>
+          </tr>
+          <tr>
+            <td class="pos-cell">2</td>
+            <td class="team-cell"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Boca_Juniors_logo18.svg">Boca Juniors</td>
+            <td>0</td><td>0</td><td>0</td><td>0</td>
+            <td>0</td><td class="pts-cell">0</td>
+          </tr>
+          <tr>
+            <td class="pos-cell">3</td>
+            <td class="team-cell"><img src="https://upload.wikimedia.org/wikipedia/en/a/a7/Paris_Saint-Germain_F.C..svg">PSG</td>
+            <td>0</td><td>0</td><td>0</td><td>0</td>
+            <td>0</td><td class="pts-cell">0</td>
+          </tr>
+          <tr>
+            <td class="pos-cell">4</td>
+            <td class="team-cell"><img src="https://upload.wikimedia.org/wikipedia/en/7/7a/Manchester_United_FC_crest.svg">Manchester United</td>
+            <td>0</td><td>0</td><td>0</td><td>0</td>
+            <td>0</td><td class="pts-cell">0</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- GROUP D TABLE -->
+    <div class="table-card">
+      <div class="table-header">
+        <div class="group-letter">D</div>
+        <div class="table-title">Group D</div>
+      </div>
+      <table class="standings-table">
+        <tbody>
+          <tr>
+            <td class="pos-cell">1</td>
+            <td class="team-cell"><img src="https://upload.wikimedia.org/wikipedia/commons/6/67/Borussia_Dortmund_logo.svg">Borussia Dortmund</td>
+            <td>0</td><td>0</td><td>0</td><td>0</td>
+            <td>0</td><td class="pts-cell">0</td>
+          </tr>
+          <tr>
+            <td class="pos-cell">2</td>
+            <td class="team-cell"><img src="https://upload.wikimedia.org/wikipedia/commons/0/05/FC_Internazionale_Milano_2021.svg">Inter Milan</td>
+            <td>0</td><td>0</td><td>0</td><td>0</td>
+            <td>0</td><td class="pts-cell">0</td>
+          </tr>
+          <tr>
+            <td class="pos-cell">3</td>
+            <td class="team-cell"><img src="https://upload.wikimedia.org/wikipedia/fr/c/c6/Al-Sadd_Sports_Club_logo.png">Al Sadd</td>
+            <td>0</td><td>0</td><td>0</td><td>0</td>
+            <td>0</td><td class="pts-cell">0</td>
+          </tr>
+          <tr>
+            <td class="pos-cell">4</td>
+            <td class="team-cell"><img src="https://upload.wikimedia.org/wikipedia/fr/thumb/9/9f/Logo_America_2023.svg/langfr-960px-Logo_America_2023.svg.png">Club America</td>
+            <td>0</td><td>0</td><td>0</td><td>0</td>
+            <td>0</td><td class="pts-cell">0</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+      </div>
+
+      <br />
+      <div class="zb">
+        <p>
+          ⓘ About : <br />
+          Qualifications are composed of a group phase , every group is composed
+          of 4 teams that conquere to play in the Cup. The first two teams of
+          each group are qualified, there will be a Home Match and an Away Match
+          for every fixture. Good luck !
+        </p>
+      </div>
+      <br />
+      <div class="zbb">
+        <p>© essayeb</p>
+      </div>
+    </main>
+
+    <script>
+      function switchTab(tabId) {
+        document.querySelectorAll(".tab-content").forEach((content) => {
+          content.classList.remove("active");
+        });
+
+        document.querySelectorAll(".nav-btn").forEach((btn) => {
+          btn.classList.remove("active");
+        });
+
+        document.getElementById(tabId).classList.add("active");
+
+        const buttons = document.querySelectorAll(".nav-btn");
+        buttons.forEach((btn) => {
+          if (btn.getAttribute("onclick").includes(tabId)) {
+            btn.classList.add("active");
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
