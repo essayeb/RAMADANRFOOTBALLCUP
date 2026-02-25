@@ -312,37 +312,40 @@
         color: var(--text-main);
       }
 
+      .group-team {
+        position: relative;
+        overflow: visible;
+      }
+
       .group-team:hover::after {
         content: attr(data-members);
         position: absolute;
-        bottom: -60px;
-        left: 0;
-        right: 0;
-        margin: 0 auto;
+        bottom: 110%;
+        left: 50%;
+        transform: translateX(-50%);
         background: #111;
         color: #fff;
-        padding: 10px 12px;
+        padding: 10px 14px;
         border-radius: 8px;
         font-size: 0.8rem;
-        width: 95%;
+        width: max-content;
+        max-width: 220px;
         text-align: center;
         border: 1px solid var(--accent);
-        z-index: 9999;
-        pointer-events: none;
+        z-index: 1000;
         white-space: pre-line;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
       }
 
       .group-team:hover::before {
         content: "";
         position: absolute;
-        bottom: -8px;
+        bottom: 100%;
         left: 50%;
         transform: translateX(-50%);
-        border-width: 5px;
+        border-width: 6px;
         border-style: solid;
         border-color: var(--accent) transparent transparent transparent;
-        z-index: 9999;
       }
       /* --- TABLE STYLES --- */
       .tables-container {
@@ -1239,8 +1242,8 @@
                 src="https://github.com/essayeb/RAMADANRFOOTBALLCUP/blob/main/cap1.jpg?raw=true"
                 alt="Image 1"
                 style="
-                  width: 320px;
-                  height: 165px;
+                  width: 350px;
+                  height: 180px;
                   background: #333;
                   border-radius: 8px;
                 "
@@ -1249,8 +1252,8 @@
                 src="https://github.com/essayeb/RAMADANRFOOTBALLCUP/blob/main/cap2.jpg?raw=true"
                 alt="Image 2"
                 style="
-                  width: 320px;
-                  height: 165px;
+                  width: 350px;
+                  height: 180px;
                   background: #333;
                   border-radius: 8px;
                 "
@@ -1326,4 +1329,3 @@
     </script>
   </body>
 </html>
-
