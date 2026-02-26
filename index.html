@@ -455,27 +455,30 @@
       .gd-negative {
         color: #e74c3c;
       }
-      /* SCORE TICKER */
+      /* SCORE TICKER FIXED */
       .score-ticker {
-        margin-top: -20px;
-        margin-bottom: 30px;
-        height: 30px;
+        width: 100%;
+        padding: 8px 15px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+
         display: flex;
-        align-items: center;
         justify-content: center;
-        overflow: hidden;
-        background-color: rgba(0, 0, 0, 0.3);
-        padding: 20px;
-        border-radius: 50px;
+        align-items: center;
+
+        background: rgba(20, 20, 20, 0.6);
+        backdrop-filter: blur(8px);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
       }
 
       #scoreText {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         font-weight: 700;
-        font-size: 1rem;
+        font-size: 0.95rem;
         color: white;
+        text-align: center;
+        width: 100%;
         opacity: 0;
-        transition: opacity 0.8s ease;
       }
     </style>
   </head>
@@ -1345,19 +1348,19 @@
       let currentScore = 0;
       const scoreElement = document.getElementById("scoreText");
 
-      function showNextScore() {
+      function showScore() {
+        scoreElement.style.transition = "opacity 0.8s ease";
         scoreElement.style.opacity = 0;
 
         setTimeout(() => {
           scoreElement.textContent = scores[currentScore];
           scoreElement.style.opacity = 1;
-
           currentScore = (currentScore + 1) % scores.length;
         }, 800);
       }
 
-      setInterval(showNextScore, 3000);
-      showNextScore();
+      showScore();
+      setInterval(showScore, 3000);
       function switchTab(tabId) {
         document.querySelectorAll(".tab-content").forEach((content) => {
           content.classList.remove("active");
