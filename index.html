@@ -501,8 +501,6 @@
         color: white;
         text-align: center;
         width: 100%;
-        opacity: 1;
-        transition: opacity 0.5s ease-in-out;
       }
     </style>
   </head>
@@ -1372,26 +1370,13 @@
       let index = 0;
       const scoreElement = document.getElementById("scoreText");
 
-      function changeScore() {
-        // fade out
-        scoreElement.style.opacity = "0";
-
-        setTimeout(() => {
-          // change text AFTER fade out
-          index = (index + 1) % scores.length;
-          scoreElement.textContent = scores[index];
-
-          // fade in
-          scoreElement.style.opacity = "1";
-        }, 500); // fade duration
-      }
-
-      // Initial state
+      // Show first score
       scoreElement.textContent = scores[0];
-      scoreElement.style.opacity = "1";
 
-      // Change every 3 seconds
-      setInterval(changeScore, 3000);
+      setInterval(() => {
+        index = (index + 1) % scores.length;
+        scoreElement.textContent = scores[index];
+      }, 3000);
       function switchTab(tabId) {
         document.querySelectorAll(".tab-content").forEach((content) => {
           content.classList.remove("active");
