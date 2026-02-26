@@ -5,6 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>eFootball Tournament</title>
     <style>
+      @media (max-width: 600px) {
+        h1 {
+          font-size: 1.6rem;
+        }
+
+        .nav-btn {
+          padding: 8px 14px;
+          font-size: 0.8rem;
+        }
+
+        .team-card {
+          padding: 18px;
+        }
+
+        .team-header img {
+          width: 32px;
+          height: 32px;
+        }
+
+        .teams-grid {
+          grid-template-columns: 1fr;
+        }
+      }
       /* RESET & BASE STYLES */
       :root {
         --bg: #0a0a0a;
@@ -478,7 +501,8 @@
         color: white;
         text-align: center;
         width: 100%;
-        opacity: 0;
+        opacity: 1;
+        transition: opacity 0.5s ease-in-out;
       }
     </style>
   </head>
@@ -1345,22 +1369,29 @@
     <script>
       const scores = ["FC Barcelona 5 - 4 PSG", "Manchester United 7 - 1 PSG"];
 
-      let currentScore = 0;
+      let index = 0;
       const scoreElement = document.getElementById("scoreText");
 
-      function showScore() {
-        scoreElement.style.transition = "opacity 0.8s ease";
-        scoreElement.style.opacity = 0;
+      function changeScore() {
+        // fade out
+        scoreElement.style.opacity = "0";
 
         setTimeout(() => {
-          scoreElement.textContent = scores[currentScore];
-          scoreElement.style.opacity = 1;
-          currentScore = (currentScore + 1) % scores.length;
-        }, 800);
+          // change text AFTER fade out
+          index = (index + 1) % scores.length;
+          scoreElement.textContent = scores[index];
+
+          // fade in
+          scoreElement.style.opacity = "1";
+        }, 500); // fade duration
       }
 
-      showScore();
-      setInterval(showScore, 3000);
+      // Initial state
+      scoreElement.textContent = scores[0];
+      scoreElement.style.opacity = "1";
+
+      // Change every 3 seconds
+      setInterval(changeScore, 3000);
       function switchTab(tabId) {
         document.querySelectorAll(".tab-content").forEach((content) => {
           content.classList.remove("active");
