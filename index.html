@@ -1009,7 +1009,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr class="qualified">
                   <td class="pos-cell">1</td>
                   <td class="team-cell">
                     <img
@@ -1024,7 +1024,7 @@
                   <td>0</td>
                   <td class="pts-cell">0</td>
                 </tr>
-                <tr>
+                <tr class="qualified">
                   <td class="pos-cell">2</td>
                   <td class="team-cell">
                     <img
@@ -1081,7 +1081,7 @@
             </div>
             <table class="standings-table">
               <tbody>
-                <tr>
+                <tr class="qualified">
                   <td class="pos-cell">1</td>
                   <td class="team-cell">
                     <img
@@ -1095,7 +1095,7 @@
                   <td>0</td>
                   <td class="pts-cell">0</td>
                 </tr>
-                <tr>
+                <tr class="qualified">
                   <td class="pos-cell">2</td>
                   <td class="team-cell">
                     <img
@@ -1149,7 +1149,7 @@
             </div>
             <table class="standings-table">
               <tbody>
-                <tr>
+                <tr class="qualified">
                   <td class="pos-cell">1</td>
                   <td class="team-cell">
                     <img
@@ -1157,15 +1157,15 @@
                     />
                     Manchester United
                   </td>
-                  <td>1</td>
-                  <td>1</td>
+                  <td>2</td>
+                  <td>2</td>
                   <td>0</td>
                   <td>0</td>
-                  <td class="gd-positive">+6</td>
-                  <td class="pts-cell">3</td>
+                  <td class="gd-positive">+7</td>
+                  <td class="pts-cell">6</td>
                 </tr>
 
-                <tr>
+                <tr class="qualified">
                   <td class="pos-cell">2</td>
                   <td class="team-cell">
                     <img
@@ -1185,31 +1185,31 @@
                   <td class="pos-cell">3</td>
                   <td class="team-cell">
                     <img
-                      src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Boca_Juniors_logo18.svg"
+                      src="https://upload.wikimedia.org/wikipedia/en/a/a7/Paris_Saint-Germain_F.C..svg"
                     />
-                    Boca Juniors
+                    PSG
                   </td>
+                  <td>4</td>
+                  <td>1</td>
                   <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td class="pts-cell">0</td>
+                  <td>3</td>
+                  <td class="gd-negative">-6</td>
+                  <td class="pts-cell">3</td>
                 </tr>
 
                 <tr>
                   <td class="pos-cell">4</td>
                   <td class="team-cell">
                     <img
-                      src="https://upload.wikimedia.org/wikipedia/en/a/a7/Paris_Saint-Germain_F.C..svg"
+                      src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Boca_Juniors_logo18.svg"
                     />
-                    PSG
+                    Boca Juniors
                   </td>
-                  <td>2</td>
+                  <td>1</td>
                   <td>0</td>
                   <td>0</td>
-                  <td>2</td>
-                  <td class="gd-negative">-7</td>
+                  <td>1</td>
+                  <td class="gd-negative">-2</td>
                   <td class="pts-cell">0</td>
                 </tr>
               </tbody>
@@ -1224,7 +1224,7 @@
             </div>
             <table class="standings-table">
               <tbody>
-                <tr>
+                <tr class="qualified">
                   <td class="pos-cell">1</td>
                   <td class="team-cell">
                     <img
@@ -1238,7 +1238,7 @@
                   <td>0</td>
                   <td class="pts-cell">0</td>
                 </tr>
-                <tr>
+                <tr class="qualified">
                   <td class="pos-cell">2</td>
                   <td class="team-cell">
                     <img
@@ -1365,7 +1365,12 @@
     </main>
 
     <script>
-      const scores = ["FC Barcelona 5 - 4 PSG", "Manchester United 7 - 1 PSG"];
+      const scores = [
+        "FC Barcelona 5 - 4 PSG",
+        "Manchester United 7 - 1 PSG",
+        "PSG 6 - 4 Boca Juniors",
+        "Manchester United 2 - 1 PSG",
+      ];
 
       let index = 0;
       const scoreElement = document.getElementById("scoreText");
