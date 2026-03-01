@@ -8,7 +8,17 @@
       /* ========================= */
       /* 📱 IOS LIQUID GLASS STYLE */
       /* ========================= */
-
+@media (max-width: 480px) {
+  .standings-table th,
+  .standings-table td {
+    padding: 8px;
+    font-size: 0.75rem;
+  }
+}
+      .qualified {
+  background: rgba(124, 92, 255, 0.08);
+  border-left: 3px solid var(--accent);
+}
       @media (max-width: 600px) {
         h1 {
           font-size: 1.6rem;
@@ -985,67 +995,74 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="qualified">
-                    <td class="pos-cell">1</td>
-                    <td class="team-cell">
-                      <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Logo_of_AC_Milan.svg"
-                        alt="AC Milan"
-                      />AC Milan
-                    </td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td class="pts-cell">0</td>
-                  </tr>
-                  <tr class="qualified">
-                    <td class="pos-cell">2</td>
-                    <td class="team-cell">
-                      <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/b/bf/Logo_Italy_National_Football_Team_-_2023.svg"
-                        alt="Italy"
-                      />Italy
-                    </td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td class="pts-cell">0</td>
-                  </tr>
-                  <tr>
-                    <td class="pos-cell">3</td>
-                    <td class="team-cell">
-                      <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Clube_de_Regatas_do_Flamengo_logo.svg/500px-Clube_de_Regatas_do_Flamengo_logo.svg.png"
-                        alt="Flamengo"
-                      />Flamengo
-                    </td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td class="pts-cell">0</td>
-                  </tr>
-                  <tr>
-                    <td class="pos-cell">4</td>
-                    <td class="team-cell">
-                      <img
-                        src="https://upload.wikimedia.org/wikipedia/fr/thumb/9/92/Hellas_Verona_FC_logo_%282020%29.svg/langfr-960px-Hellas_Verona_FC_logo_%282020%29.svg.png"
-                        alt="Hellas Verona"
-                      />Hellas Verona
-                    </td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td class="pts-cell">0</td>
-                  </tr>
-                </tbody>
+  <tr class="qualified">
+    <td class="pos-cell">1</td>
+    <td class="team-cell">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Logo_of_AC_Milan.svg"
+        alt="AC Milan"
+      />
+      AC Milan
+    </td>
+    <td>2</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td class="gd-positive">+3</td>
+    <td class="pts-cell">4</td>
+  </tr>
+
+  <tr>
+    <td class="pos-cell">2</td>
+    <td class="team-cell">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/b/bf/Logo_Italy_National_Football_Team_-_2023.svg"
+        alt="Italy"
+      />
+      Italy
+    </td>
+    <td>2</td>
+    <td>0</td>
+    <td>1</td>
+    <td>1</td>
+    <td class="gd-negative">-3</td>
+    <td class="pts-cell">1</td>
+  </tr>
+
+  <tr>
+    <td class="pos-cell">3</td>
+    <td class="team-cell">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Clube_de_Regatas_do_Flamengo_logo.svg/500px-Clube_de_Regatas_do_Flamengo_logo.svg.png"
+        alt="Flamengo"
+      />
+      Flamengo
+    </td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td class="pts-cell">0</td>
+  </tr>
+
+  <tr>
+    <td class="pos-cell">4</td>
+    <td class="team-cell">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/fr/thumb/9/92/Hellas_Verona_FC_logo_%282020%29.svg/langfr-960px-Hellas_Verona_FC_logo_%282020%29.svg.png"
+        alt="Hellas Verona"
+      />
+      Hellas Verona
+    </td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td class="pts-cell">0</td>
+  </tr>
+</tbody>
               </table>
             </div>
           </div>
@@ -1422,6 +1439,8 @@
         "Real Madrid 0 - 1 Juventus",
         "Real Madrid 2 - 1 Marseille",
         "Real Madrid 0 - 2 Marseille",
+        "AC Milan 3 - 0 Italy",
+"AC Milan 1 - 1 Italy"
       ];
 
       let index = 0;
@@ -1455,3 +1474,4 @@
     </script>
   </body>
 </html>
+
