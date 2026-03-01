@@ -496,6 +496,31 @@
         background: var(--accent);
         color: white;
       }
+      .ticker-inner {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .ticker-badge {
+        padding: 4px 12px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        border-radius: 50px;
+        letter-spacing: 0.5px;
+        background: var(--accent);
+        color: white;
+        transition: all 0.3s ease;
+      }
+
+      #tickerText {
+        font-weight: 700;
+        white-space: nowrap;
+        transition: transform 0.5s ease, opacity 0.4s ease, color 0.3s ease;
+      }
     </style>
   </head>
   <body>
@@ -512,7 +537,10 @@
         </button>
       </nav>
       <div class="score-ticker">
-        <span id="scoreText">FC Barcelona 5 - 4 PSG</span>
+        <div class="ticker-inner">
+          <span id="tickerBadge" class="ticker-badge">LIVE</span>
+          <span id="tickerText">Loading tournament updates...</span>
+        </div>
       </div>
     </header>
 
@@ -1193,12 +1221,12 @@
                       />
                       FC Barcelona
                     </td>
-                    <td>2</td>
-                    <td>2</td>
+                    <td>3</td>
+                    <td>3</td>
                     <td>0</td>
                     <td>0</td>
-                    <td class="gd-positive">+2</td>
-                    <td class="pts-cell">6</td>
+                    <td class="gd-positive">+4</td>
+                    <td class="pts-cell">9</td>
                   </tr>
 
                   <tr class="qualified">
@@ -1209,11 +1237,11 @@
                       />
                       Manchester United
                     </td>
-                    <td>3</td>
+                    <td>4</td>
                     <td>2</td>
                     <td>0</td>
-                    <td>1</td>
-                    <td class="gd-positive">+6</td>
+                    <td>2</td>
+                    <td class="gd-positive">+4</td>
                     <td class="pts-cell">6</td>
                   </tr>
 
@@ -1403,9 +1431,6 @@
                 4. Every match’s final score must be documented with a
                 screenshot.
               </p>
-              <p>
-                5. Every match has only ONE chance to be restarted if the cause of the restart was rule n°1.
-              </p>
             </div>
           </div>
         </div>
@@ -1446,35 +1471,99 @@
           card.classList.toggle("show-members");
         });
       });
-      const scores = [
-        "تمت تعبئة الكرش بنجاح",
-        "FC Barcelona 5 - 4 PSG",
-        "Manchester United 7 - 1 PSG",
-        "PSG 6 - 4 Boca Juniors",
-        "Manchester United 2 - 1 PSG",
-        "Juventus 2 - 1 Real Madrid",
-        "Real Madrid 0 - 1 Juventus",
-        "Real Madrid 2 - 1 Marseille",
-        "Real Madrid 0 - 2 Marseille",
-        "Borussia Dortmund 4 - 1 Club America",
-        "Borussia Dortmund 1 - 1 Club America",
-        "Inter Milan 3 - 0 Borussia Dortmund",
-        "FC Barcelona 2 - 1 Manchester United",
-        "Juventus 4 - 1 Santos FC",
-        "Juventus 3 - 3 Santos FC",
-        "Dortmund 0 - 2 Inter Milan",
+      const tickerItems = [
+        { type: "fact", text: "تمت تعبئة الكرش بنجاح" },
+        { type: "live", text: "Borussia Dortmund 4 - 1 Club America" },
+        {
+          type: "live",
+          text: "FC Barcelona 5 - 4 PSG 🔥",
+        },
+        {
+          type: "fact",
+          text: "FC Barcelona are currently unbeaten in Group C",
+        },
+        {
+          type: "live",
+          text: "Manchester United 7 - 1 PSG 😳",
+        },
+        {
+          type: "fact",
+          text: "Juventus are currently unbeaten in Group B",
+        },
+        { type: "live", text: "Inter Milan 3 - 0 Borussia Dortmund" },
+        {
+          type: "fact",
+          text: "Manchester United scored 7 goals in one match  — highest in tournament",
+        },
+        {
+          type: "news",
+          text: "Top 2 teams from each group qualify to the Cup stage",
+        },
+        { type: "live", text: "Juventus 4 - 1 Santos FC" },
+        {
+          type: "alert",
+          text: "All match results must be documented with screenshots",
+        },
+        { type: "live", text: "Dortmund 0 - 2 Inter Milan" },
+        {
+          type: "news",
+          text: "Inter Milan have not conceded in Group D",
+        },
+        {
+          type: "fact",
+          text: "PSG conceded 6 goals in a single match",
+        },
       ];
 
-      let index = 0;
-      const scoreElement = document.getElementById("scoreText");
+      let tickerIndex = 0;
+      const tickerText = document.getElementById("tickerText");
+      const tickerBadge = document.getElementById("tickerBadge");
 
-      // Show first score
-      scoreElement.textContent = scores[0];
+      function updateTicker() {
+        const item = tickerItems[tickerIndex];
 
-      setInterval(() => {
-        index = (index + 1) % scores.length;
-        scoreElement.textContent = scores[index];
-      }, 3000);
+        // Animate out
+        tickerText.style.opacity = 0;
+        tickerText.style.transform = "translateY(10px)";
+
+        setTimeout(() => {
+          tickerText.textContent = item.text;
+
+          // Badge styling
+          if (item.type === "live") {
+            tickerBadge.textContent = "LIVE";
+            tickerBadge.style.background = "#ff3b30";
+          }
+
+          if (item.type === "news") {
+            tickerBadge.textContent = "NEWS";
+            tickerBadge.style.background = "#007aff";
+          }
+
+          if (item.type === "fact") {
+            tickerBadge.textContent = "FACT";
+            tickerBadge.style.background = "#34c759";
+          }
+
+          if (item.type === "alert") {
+            tickerBadge.textContent = "ALERT";
+            tickerBadge.style.background = "#ffcc00";
+          }
+
+          // Animate in
+          tickerText.style.opacity = 1;
+          tickerText.style.transform = "translateY(0)";
+
+          tickerIndex = (tickerIndex + 1) % tickerItems.length;
+        }, 400);
+      }
+
+      // Initial load
+      updateTicker();
+
+      // Auto rotate
+      setInterval(updateTicker, 3500);
+
       function switchTab(tabId) {
         document.querySelectorAll(".tab-content").forEach((content) => {
           content.classList.remove("active");
@@ -1496,4 +1585,3 @@
     </script>
   </body>
 </html>
-
