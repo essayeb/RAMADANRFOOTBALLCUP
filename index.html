@@ -32,6 +32,137 @@
           grid-template-columns: 1fr;
         }
       }
+      .gd-positive {
+  color: #34c759;
+  font-weight: 700;
+}
+
+.gd-negative {
+  color: #ff3b30;
+  font-weight: 700;
+}
+
+.gd-neutral {
+  color: #ffcc00;
+  font-weight: 700;
+}
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+/* ======================= */
+/* 🏆 PRO KNOCKOUT BRACKET */
+/* ======================= */
+
+.knockout-container{
+display:flex;
+justify-content:center;
+gap:70px;
+align-items:flex-start;
+flex-wrap:wrap;
+margin-top:20px;
+}
+
+.round{
+display:flex;
+flex-direction:column;
+gap:35px;
+position:relative;
+}
+
+.round-title{
+font-weight:700;
+text-align:center;
+margin-bottom:10px;
+color:var(--text-muted);
+letter-spacing:1px;
+font-size:0.85rem;
+}
+
+.match{
+background:rgba(255,255,255,0.07);
+border:1px solid rgba(255,255,255,0.2);
+backdrop-filter:blur(20px);
+padding:12px;
+border-radius:14px;
+width:200px;
+position:relative;
+transition:all .3s ease;
+}
+
+.match:hover{
+background:rgba(255,255,255,0.15);
+transform:translateY(-3px) scale(1.03);
+}
+
+.team{
+display:flex;
+align-items:center;
+gap:10px;
+padding:6px 0;
+}
+
+.team img{
+width:24px;
+height:24px;
+object-fit:contain;
+}
+
+.team:not(:last-child){
+border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+/* BRACKET LINES */
+
+.round.quarter .match::after{
+content:"";
+position:absolute;
+right:-35px;
+top:50%;
+width:35px;
+height:2px;
+background:rgba(255,255,255,0.25);
+}
+
+.round.semi .match::before{
+content:"";
+position:absolute;
+left:-35px;
+top:50%;
+width:35px;
+height:2px;
+background:rgba(255,255,255,0.25);
+}
+
+.round.semi .match::after{
+content:"";
+position:absolute;
+right:-35px;
+top:50%;
+width:35px;
+height:2px;
+background:rgba(255,255,255,0.25);
+}
+
+.round.final .match::before{
+content:"";
+position:absolute;
+left:-35px;
+top:50%;
+width:35px;
+height:2px;
+background:rgba(255,255,255,0.25);
+}
+
+/* spacing for bracket alignment */
+
+.round.semi{
+margin-top:55px;
+}
+
+.round.final{
+margin-top:140px;
+}
 
       /* ROOT */
       :root {
@@ -539,6 +670,8 @@
         <button class="nav-btn" onclick="switchTab('settings')">
           Settings
         </button>
+        <button class="nav-btn" onclick="switchTab('knockout')">Knockout</button>
+      
       </nav>
       <div class="score-ticker">
         <div class="ticker-inner">
@@ -1366,6 +1499,103 @@
           </div>
         </div>
       </div>
+      <!-- ================= KNOCKOUT TAB ================= -->
+<div id="knockout" class="tab-content">
+
+<div class="table-card">
+
+<div class="table-header">
+<div class="group-letter">🏆</div>
+<div class="table-title">Knockout Stage</div>
+</div>
+
+<div class="knockout-container">
+
+<!-- QUARTER FINALS -->
+<div class="round quarter">
+
+<div class="round-title">QUARTER FINALS</div>
+
+<div class="match">
+<div class="team">
+<img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Logo_of_AC_Milan.svg">
+AC Milan
+</div>
+<div class="team">
+<img src="https://upload.wikimedia.org/wikipedia/fr/c/c6/Al-Sadd_Sports_Club_logo.png">
+Al Sadd
+</div>
+</div>
+
+<div class="match">
+<div class="team">
+<img src="https://upload.wikimedia.org/wikipedia/commons/b/bf/Logo_Italy_National_Football_Team_-_2023.svg">
+Italy
+</div>
+<div class="team">
+<img src="https://upload.wikimedia.org/wikipedia/commons/0/05/FC_Internazionale_Milano_2021.svg">
+Inter Milan
+</div>
+</div>
+
+<div class="match">
+<div class="team">
+<img src="https://upload.wikimedia.org/wikipedia/fr/thumb/c/c5/Logo_Juventus_FC_2020.svg/960px-Logo_Juventus_FC_2020.svg.png">
+Juventus
+</div>
+<div class="team">
+<img src="https://upload.wikimedia.org/wikipedia/en/7/7a/Manchester_United_FC_crest.svg">
+Manchester United
+</div>
+</div>
+
+<div class="match">
+<div class="team">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Santos_logo.svg/960px-Santos_logo.svg.png">
+Santos
+</div>
+<div class="team">
+<img src="https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg">
+Barcelona
+</div>
+</div>
+
+</div>
+
+<!-- SEMI FINALS -->
+<div class="round semi">
+
+<div class="round-title">SEMI FINALS</div>
+
+<div class="match">
+<div class="team">Winner Milan / Al Sadd</div>
+<div class="team">Winner Italy / Inter</div>
+</div>
+
+<div class="match">
+<div class="team">Winner Juventus / Man Utd</div>
+<div class="team">Winner Santos / Barcelona</div>
+</div>
+
+</div>
+
+<!-- FINAL -->
+<div class="round final">
+
+<div class="round-title">FINAL</div>
+
+<div class="match">
+<div class="team">Winner SF1</div>
+<div class="team">Winner SF2</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
       <!-- SETTINGS TAB -->
       <div id="settings" class="tab-content">
         <div class="groups-container">
@@ -1462,8 +1692,13 @@
       });
       document.querySelectorAll(".team-card").forEach((card) => {
         card.addEventListener("click", () => {
-          card.classList.toggle("show-members");
-        });
+
+  document.querySelectorAll(".team-card").forEach(c=>{
+    if(c!==card) c.classList.remove("show-members");
+  });
+
+  card.classList.toggle("show-members");
+});
       });
       const tickerItems = [
         {
